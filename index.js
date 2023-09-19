@@ -12,7 +12,7 @@ app.use(express.json());
 
 //Routes
 app.get("/", (req, res) => {
-    res.status(200).send("Welcome to the backend of CodeVortex");
+    res.status(200).send("Welcome to the backend of ScriptAI");
 });
 app.use("/user", UserRoute);
 app.use("/question", QuestionRoute);
