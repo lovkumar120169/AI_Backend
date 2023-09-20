@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 app.use("/user", UserRoute);
 app.use("/question", QuestionRoute);
 app.use("/history", HistoryRoute);
-
+// mongo
 
 //Server Running
 const port = process.env.PORT || 5000;
