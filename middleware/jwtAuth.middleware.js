@@ -5,7 +5,7 @@ const verify = async (req, res, next) => {
   try {
     // console.log(req.header("Auth"));
     const tkn = req.header("Auth");
-    const decoded = jwt.verify(tkn, sKey);
+    const decoded = jwt.verify(tkn, "lovkumar");
     if (decoded) {
       req.body.userId = decoded.userID;
       // console.log(decoded);

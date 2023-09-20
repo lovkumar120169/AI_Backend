@@ -6,6 +6,9 @@ const { verify } = require("../middleware/jwtAuth.middleware");
 const UserRoute = require("express").Router();
 require("dotenv").config();
 
+
+
+
 UserRoute.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -30,6 +33,15 @@ UserRoute.post("/register", async (req, res) => {
     res.json({ msg: error.msg });
   }
 });
+
+
+
+
+
+
+
+
+
 UserRoute.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -47,7 +59,7 @@ UserRoute.post("/login", async (req, res) => {
 
     const Accesstoken = jwt.sign(
       { userID: isUserExist._id },
-      process.env.sKey
+      "lovkumar"
     );
     console.log(Accesstoken);
 
@@ -56,6 +68,11 @@ UserRoute.post("/login", async (req, res) => {
     res.json({ msg: error.msg });
   }
 });
+
+
+
+
+
 UserRoute.get("/logout", async (req, res) => {
   // we wil get the accesstoken and refreshtoken in req.headers with the respective name;
   try {
