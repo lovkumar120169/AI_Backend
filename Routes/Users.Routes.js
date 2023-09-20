@@ -14,7 +14,7 @@ UserRoute.post("/register", async (req, res) => {
 
     console.log(isUserExist);
     if (isUserExist) {
-      return res.send({
+      return res.json({
         msg: "user already exist in the database try with new email",
       });
     }
@@ -25,9 +25,9 @@ UserRoute.post("/register", async (req, res) => {
     // console.log(user);
     await user.save();
 
-    res.send({ msg: "user has been registered successfully" });
+    res.json({ msg: "user has been registered successfully" });
   } catch (error) {
-    res.send({ msg: error.msg });
+    res.json({ msg: error.msg });
   }
 });
 UserRoute.post("/login", async (req, res) => {
@@ -36,13 +36,13 @@ UserRoute.post("/login", async (req, res) => {
     const isUserExist = await UserModel.findOne({ email });
 
     if (!isUserExist) {
-      return res.status(401).send({ msg: "invalid username or password" });
+      return res.status(401).json({ msg: "invalid username or password" });
     }
 
     var result = bcrypt.compareSync(password, isUserExist.password);
     // console.log(result);
     if (!result) {
-      return res.status(401).send({ msg: "invalid username or password" });
+      return res.status(401).json({ msg: "invalid username or password" });
     }
 
     const Accesstoken = jwt.sign(
@@ -51,9 +51,9 @@ UserRoute.post("/login", async (req, res) => {
     );
     console.log(Accesstoken);
 
-    res.send({ msg: "login successfull", user: isUserExist, Accesstoken });
+    res.json({ msg: "login successfull", user: isUserExist, Accesstoken });
   } catch (error) {
-    res.send({ msg: error.msg });
+    res.json({ msg: error.msg });
   }
 });
 UserRoute.get("/logout", async (req, res) => {
@@ -64,9 +64,9 @@ UserRoute.get("/logout", async (req, res) => {
     const blackAccess = new Blacklist({ token: accesstoken });
     await blackAccess.save();
 
-    res.send({ msg: "logout successfull....." });
+    res.json({ msg: "logout successfull....." });
   } catch (error) {
-    res.send({ msg: error.msg });
+    res.json({ msg: error.msg });
   }
 });
 
@@ -81,9 +81,9 @@ UserRoute.get("/verify", verify, async (req, res) => {
   try {
     const user = await UserModel.findOne({ _id: userId });
     // console.log(userId, "USER");
-    res.send({ msg: "Success", user, token });
+    res.json({ msg: "Success", user, token });
   } catch (error) {
-    res.send({ msg: error.msg });
+    res.json({ msg: error.msg });
   }
 });
 
